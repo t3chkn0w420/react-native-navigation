@@ -1,10 +1,12 @@
 import React from "react";
 import { View, StyleSheet, Text } from "react-native";
+// import { useAuth } from "../AuthContext";
 
-const Drawer3 = () => {
+const Profile = () => {
+  const [user] = useAuth();
   return (
     <View style={styles.center}>
-      <Text>This is the Drawer3 screen</Text>
+      <Text>{user.displayName}</Text>
     </View>
   );
 };
@@ -18,4 +20,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Drawer3;
+export default Profile;

@@ -1,18 +1,21 @@
 import React from "react";
-import { View, Text, Button, TextInput, StyleSheet } from "react-native";
+import { View, Text, Button, TextInput, StyleSheet, TouchableOpacity } from "react-native";
+import { useNavigation } from '@react-navigation/core';
 
 const LoginScreen = ({ navigation }) => {
-   const [username, setUsername] = React.useState('');
+   const [email, setEmail] = React.useState('');
    const [password, setPassword] = React.useState('');
  
-   const { signIn } = React.useContext(AuthContext);
- 
+  //  const { signIn } = React.useContext(AuthContext);
+  function navigate(){
+    navigation.navigate('Register');    
+}
    return (
-     <View>
+     <View style={styles.center}>
        <TextInput
-         placeholder="Username"
-         value={username}
-         onChangeText={setUsername}
+         placeholder="Email"
+         value={email}
+         onChangeText={setEmail}
        />
        <TextInput
          placeholder="Password"
@@ -20,7 +23,15 @@ const LoginScreen = ({ navigation }) => {
          onChangeText={setPassword}
          secureTextEntry
        />
-       <Button title="Sign in" onPress={() => signIn({ username, password })} />
+       {/* <Button title="Login" onPress={() => LoginScreen({ email, password })} /> */}
+       <>
+       <TouchableOpacity 
+        // onPress={'Register'}>
+    onPress={() => navigation.navigate('Register')}>
+        
+          <Text> Login </Text>
+          </TouchableOpacity>
+          </>
      </View>
    );
  }
