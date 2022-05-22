@@ -1,127 +1,58 @@
-import React from 'react';
-// import Dimensions from 'Dimensions';
-import { 
-    KeyboardAvoidingView, View, Button, Alert, Text, AsyncStorage, StyleSheet, TextInput
-} from 'react-native';
+import React, { useState } from "react";
+import { SafeAreaView, Text, Button, TextInput, StyleSheet, TouchableOpacity } from "react-native";
 
-export default class SigninScreen extends React.Component {
-    static navigationOptions = {
-        header: null,
-    };
-    constructor(props) {
-        super(props);
+import Home from '../screens/Home';
 
-        this.state = {
-            name:  '',
-            email: '', 
-            password: '', 
-            spinner: false, 
-            error: false
-        };
-        this._signInHandler = this._signInHandler.bind(this);
-    }
+const RegisterScreen = ({ navigation }) => {
+  const [name, setName] = React.useState('');
+   const [email, setEmail] = React.useState('');
+   const [password, setPassword] = React.useState('');
+ 
+  //  const { signIn } = React.useContext(AuthContext);
+  
+  const RegisterPress = () => {
+    navigation.navigate('DrawerTab');
+  }
 
-    _signInHandler = async () => {
-        const {name, email, password} = this.state;
+   return (
+     <SafeAreaView style={ styles.center }>
+       <TextInput
+         placeholder="Name"
+         value={name}
+         onChangeText={setName}
+       />
+       <TextInput
+         placeholder="Email"
+         value={email}
+         onChangeText={setEmail}
+       
+      />
+       <TextInput
+         placeholder="Password"
+         value={password}
+         onChangeText={setPassword}
+         secureTextEntry
+       />
+       {/* <Button title="Register" onPress={() => RegisterScreen({ name, email, password })} /> */}
+       <>
+       <TouchableOpacity 
+        // onPress={'Register'}>
+         onPress={() => navigation.navigate('DrawerNavigator')}>
+        
+          <Text> Register </Text>
+          </TouchableOpacity>
+          </>
+     </SafeAreaView>
+   );
+ }
 
-        var formData = new FormData();
-        formData.append('name', name);
-        formData.append('email', email);
-        formData.append('password', password);
-
-        this.setState({spinner: true});
-
-        const response = await fetch(`https://c282a758.ngrok.io/api/register`, {
-            method: 'POST', 
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/x-www-form-urlencoded'
-            }, 
-            body: formData
-        })
-        .then(resp => {
-            this.setState({spinner: false});
-            return resp.json();
-        })
-        .catch(error => {
-            this.setState({spinner: false});
-            throw error;
-        });
-
-        console.log(response);
-
-        if (typeof response.message != "undefined") {
-            await Alert.alert('Error', response.message);
-        }
-        else {
-            await AsyncStorage.setItem('userToken', response.token);
-            await AsyncStorage.setItem('userName', response.userData.name);
-            this.props.navigation.navigate('App');
-        }
-    }
-
-
-    render() {
-        return (
-            <KeyboardAvoidingView style={{flexGrow: 1}} behavior="padding" enabled>
-                <View style={style.container}>
-                
-                    <TextInput 
-                        onChangeText={name => this.setState({name})}
-                        style={style.input}
-                        placeholder="Full Name"
-                        value={this.state.name}
-                    />
-                
-                    <TextInput 
-                        keyboardType="email-address"
-                        onChangeText={email => this.setState({email})}
-                        style={style.input}
-                        placeholder="Email Address"
-                        value={this.state.email}
-                    />
-                    <TextInput 
-                        secureTextEntry={true}
-                        onChangeText={password => this.setState({password})}
-                        style={style.input}
-                        placeholder="Password"
-                        value={this.state.password}
-                    />
-                    {this.state.spinner &&
-                        <Text style={style.spinnerTextStyle}>Processing ...</Text>
-                    }
-                    {!this.state.spinner &&
-                        <Button
-                            title="Sign in!"
-                            onPress={() => this.props.navigation.navigate('DrawerNavigator')}
-                        />
-                    }
-                </View>
-            </KeyboardAvoidingView>
-        );
-    }
-}
-
-// const DEVICE_WIDTH = Dimensions.get('window').width;
-
-const style = StyleSheet.create({
-    container: {
-        flex: 1, 
-        justifyContent: 'center', 
-        alignItems: 'center'
-    }, 
-    input: {
-        backgroundColor: '#DAE1F1',
-        // width: DEVICE_WIDTH - 100,
-        height: 40,
-        width: "80%",
-        marginHorizontal: 20,
-        borderRadius: 20,
-        color: '#333333',
-        marginBottom: 30,
-        paddingLeft: 15
-    },
-    spinnerTextStyle: {
-        textAlign: 'center'
-    },
+const styles = StyleSheet.create({
+  center: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    textAlign: "center",
+  },
 });
+
+export default RegisterScreen;

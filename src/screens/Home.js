@@ -1,5 +1,5 @@
 import React from "react";
-import { View, SafeAreaView, Button, Image, Text, StyleSheet, TouchableOpacity } from "react-native";
+import { View, Button, Image, Text, StyleSheet } from "react-native";
 
 function StackScreen() {
   return (
@@ -33,24 +33,17 @@ function StackScreen() {
 }
 
 function Home({ navigation }) {
-  return (
-    <SafeAreaView>
-      <View styles={styles.header}>
-        <TouchableOpacity
-          // onPress={() => navigation.navigate('')}
-          onPress={() => {
-          // navigation.toggleDrawer()}
-          navigation.goBack();
-          navigation.openDrawer();
-          }}
-        >
-            <Image source={require('../assets/images/user.png')}
-                style={{ height: 50, width: 50, marginLeft: 340, marginTop: 5 }}
-            /> 
-        </TouchableOpacity>
-      </View>
-    </SafeAreaView>
-  )
+  const [count, setCount] = React.useState(0);
+
+  React.useLayoutEffect(() => {
+    navigation.setOptions({
+      headerRight: () => (
+        <Button onPress={() => setCount(c => c + 1)} title="Update count" />
+      ),
+    });
+  }, [navigation]);
+
+  return <Text>Count: {count}</Text>;
 }
 
 const styles = StyleSheet.create({
@@ -59,12 +52,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     textAlign: "center",
-  },
-  header: {
-  marginBottom: 200,
-    marginLeft: 200,
-    justifyContent: "center",
-    alignItems: "center",
   },
 });
 

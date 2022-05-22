@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import { SafeAreaView, StyleSheet, StatusBar, Text } from "react-native";
 import { useNavigation } from '@react-navigation/core';
 import { NavigationContainer } from '@react-navigation/native'
@@ -8,11 +8,8 @@ import {   createDrawerNavigator,
   DrawerContentScrollView,
   DrawerItemList,
   DrawerItem } from '@react-navigation/drawer';
-  import { AsyncStorage } from 'react-native';
 
 const Stack = createNativeStackNavigator();
-
-import AuthProvider from './AuthContext';
 
 import DrawerNavigator from './src/navigation/DrawerNavigator';
 import Navigator from './src/navigation/StackNavigator';
@@ -22,27 +19,12 @@ function navigate(){
 }
 
 const App = () => {
-  const [isloggedin, setLogged] = useState(null);
-
-  const detectLogin = async () => {
-    const token = await AsyncStorage.getItem('token');
-    if (token) {
-      setLogged(true);
-    } else {
-      setLogged(false);
-    }
-  };
-  useEffect(() => {
-    detectLogin();
-  }, []);
-
-
   return (
     <NavigationContainer>
-      <Stack.Navigator>
-          <Stack.Screen name="Navigator"  component={Navigator} />
-          <Stack.Screen name="DrawerNavigator"  component={DrawerNavigator} />
-      </Stack.Navigator>
+          <Stack.Navigator initialRouteName='Navigator' screenOptions={{ headerShown: false }}>
+              <Stack.Screen name="Navigator"  component={Navigator} />
+              <Stack.Screen name="DrawerNavigator"  component={DrawerNavigator} />
+          </Stack.Navigator>
     </NavigationContainer>
   )
 }

@@ -3,12 +3,11 @@ import { useNavigation } from '@react-navigation/core';
 import { NavigationContainer } from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
+
 import Home from '../screens/Home';
 import LoginScreen from '../screens/LoginScreen';
 import RegisterScreen from '../screens/RegisterScreen';
 // import Profile from '../src/screens/Tab/Profile';
-import { AuthContext } from '../context/AuthContexts';
-import { AuthProvider } from '../../AuthContext';
 
 const Stack = createNativeStackNavigator();
 
@@ -18,14 +17,7 @@ const Navigator = () => {
    
    if (!isLoggedIn) {
      return (
-       <Stack.Navigator 
-          screenOptions={{
-            gestureEnabled: true,
-            headerStyle: { backgroundColor: 'tomato' },
-            headerTitleStyle: { fontWeight: 'bold' },
-            headerTintColor: '#f8f8f8'
-          }}
-       >
+       <Stack.Navigator screenOptions={{ headerShown: false }}>
              {/* Auth screens */}
              <Stack.Group screenOptions={{ headerShown: false }}>
                <Stack.Screen name="Login" component={LoginScreen} />
