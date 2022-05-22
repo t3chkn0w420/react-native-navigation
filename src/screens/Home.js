@@ -9,6 +9,8 @@ const Home = ({ navigation }) => {
         title="Go to About Screen"
         onPress={() => navigation.navigate("About")}
       />
+      <Button title="Toggle drawer" onPress={() => navigation.toggleDrawer()} />
+      <Button title="Open drawer" onPress={() => navigation.openDrawer()} />
     </View>
   );
 };

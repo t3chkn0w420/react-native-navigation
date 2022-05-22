@@ -3,8 +3,10 @@ import { SafeAreaView, StyleSheet, StatusBar, Text } from "react-native";
 import { NavigationContainer } from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { createDrawerNavigator } from '@react-navigation/drawer';
-
+import {   createDrawerNavigator,
+  DrawerContentScrollView,
+  DrawerItemList,
+  DrawerItem } from '@react-navigation/drawer';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -12,10 +14,11 @@ const Drawer = createDrawerNavigator();
 
 import Home from './src/screens/Home';
 import About from './src/screens/About';
-import Contact from './src/screens/Contact';
+import Settings from './src/screens/Settings';
 import LoginScreen from './src/screens/LoginScreen';
 import RegisterScreen from './src/screens/RegisterScreen';
-import Analytics from './src/screens/Analytics';
+import Analytics from './src/screens/Tab/Analytics';
+import Profile from './src/screens/Tab/Profile';
 
 import Tab1 from './src/screens/Tab/Tab1';
 import Tab2 from './src/screens/Tab/Tab2';
@@ -28,10 +31,29 @@ import Drawer3 from './src/screens/Drawer/Drawer3';
 import DrawerNavigator from './src/navigation/DrawerNavigator';
 // import BottomTabNavigator from './src/navigation/BottomTabNavigator';
 
+function CustomDrawerContent(props) {
+  return (
+    <DrawerContentScrollView {...props}>
+      <DrawerItemList {...props} />
+      <DrawerItem
+        label="Close drawer"
+        onPress={() => props.navigation.closeDrawer()}
+      />
+      <DrawerItem
+        label="Toggle drawer"
+        onPress={() => props.navigation.toggleDrawer()}
+      />
+    </DrawerContentScrollView>
+  );
+}
+
 function DrawerTab() {
   return (
-        <Drawer.Navigator initialRouteName='Home' screenOptions={{ headerShown: true }}>
-          <Drawer.Screen name="Home" component={Home} />
+        <Drawer.Navigator initialRouteName='Home' screenOptions={{ headerShown: true }}
+        useLegacyImplementation
+        drawerContent={(props) => <CustomDrawerContent {...props} />}
+        >
+          <Drawer.Screen name="Home" component={BottomTab} />
           <Drawer.Screen name="Drawer1" component={Drawer1} />
           <Drawer.Screen name="Drawer2" component={Drawer2} />
           <Drawer.Screen name="Drawer3" component={Drawer3} />
@@ -41,11 +63,12 @@ function DrawerTab() {
 
 function BottomTab() {
   return (
-  
-    <Tab.Navigator initialRouteName='Tab2' screenOptions={{ headerShown: false }}>
-      <Tab.Screen name="Tab1" component={Tab1} />
-      <Tab.Screen name="Tab2" component={DrawerTab} />
-      <Tab.Screen name="Tab3" component={Tab3} />
+    <Tab.Navigator initialRouteName='Home,' screenOptions={{ headerShown: false }}>
+      <Tab.Screen name="Analytics" component={Analytics} />
+      <Tab.Screen name="About" component={About} />
+      <Tab.Screen name="Home," component={Home} />
+      <Tab.Screen name="Settings" component={Settings} />
+      <Tab.Screen name="Profile" component={Profile} />
     </Tab.Navigator>
     
   )
@@ -53,18 +76,17 @@ function BottomTab() {
 
 const App = () => {
   return (
-    // <SafeAreaView style={styles.center}>
     <NavigationContainer>
-          <Stack.Navigator initialRouteName='Home' screenOptions={{ headerShown: false }}>
-              <Stack.Screen name="Home" component={BottomTab} />
+          {/* <Stack.Navigator initialRouteName='Home' screenOptions={{ headerShown: false }}> */}
+            <DrawerTab />
+              {/* <Stack.Screen name="Home" component={BottomTab} />
               <Stack.Screen name="About"  component={About} />
               <Stack.Screen name="Contact"  component={Contact} />
+              
               <Stack.Screen name="LoginScreen"  component={LoginScreen} />
-              <Stack.Screen name="RegisterScreen"  component={RegisterScreen} />
-          </Stack.Navigator>
+              <Stack.Screen name="RegisterScreen"  component={RegisterScreen} /> */}
+          {/* </Stack.Navigator> */}
     </NavigationContainer>
-          
-    // </SafeAreaView>
   )
 }
 
