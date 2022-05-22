@@ -4,34 +4,36 @@ import {
     KeyboardAvoidingView, View, Button, Alert, Text, AsyncStorage, StyleSheet, TextInput
 } from 'react-native';
 
+
 export default class SigninScreen extends React.Component {
+
     static navigationOptions = {
         header: null,
     };
+
     constructor(props) {
         super(props);
 
         this.state = {
-            name:  '',
             email: '', 
             password: '', 
             spinner: false, 
             error: false
         };
+
         this._signInHandler = this._signInHandler.bind(this);
     }
 
     _signInHandler = async () => {
-        const {name, email, password} = this.state;
+        const {email, password} = this.state;
 
         var formData = new FormData();
-        formData.append('name', name);
         formData.append('email', email);
         formData.append('password', password);
 
         this.setState({spinner: true});
 
-        const response = await fetch(`https://c282a758.ngrok.io/api/register`, {
+        const response = await fetch(`https://c282a758.ngrok.io/api/login`, {
             method: 'POST', 
             headers: {
                 'Accept': 'application/json',
@@ -60,19 +62,10 @@ export default class SigninScreen extends React.Component {
         }
     }
 
-
     render() {
         return (
             <KeyboardAvoidingView style={{flexGrow: 1}} behavior="padding" enabled>
                 <View style={style.container}>
-                
-                    <TextInput 
-                        onChangeText={name => this.setState({name})}
-                        style={style.input}
-                        placeholder="Full Name"
-                        value={this.state.name}
-                    />
-                
                     <TextInput 
                         keyboardType="email-address"
                         onChangeText={email => this.setState({email})}
@@ -93,7 +86,7 @@ export default class SigninScreen extends React.Component {
                     {!this.state.spinner &&
                         <Button
                             title="Sign in!"
-                            onPress={() => this.props.navigation.navigate('DrawerNavigator')}
+                            onPress={this._signInHandler}
                         />
                     }
                 </View>
@@ -114,7 +107,6 @@ const style = StyleSheet.create({
         backgroundColor: '#DAE1F1',
         // width: DEVICE_WIDTH - 100,
         height: 40,
-        width: "80%",
         marginHorizontal: 20,
         borderRadius: 20,
         color: '#333333',
