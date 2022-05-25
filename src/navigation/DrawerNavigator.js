@@ -8,6 +8,7 @@ import {
   DrawerItem 
 } from '@react-navigation/drawer';
 
+import HomeScreen from '../screens/HomeScreen';
 import Drawer1 from '../screens/Drawer/Drawer1';
 import Drawer2 from '../screens/Drawer/Drawer2';
 import Profile from '../screens/Tab/Profile';
@@ -32,12 +33,12 @@ function CustomDrawerContent(props) {
 
 const DrawerNavigator = () => {
   return (
-        <Drawer.Navigator initialRouteName='Main' screenOptions={{ headerShown: true }}
+        <Drawer.Navigator initialRouteName='Home' screenOptions={{ headerShown: false }}
         useLegacyImplementation
         drawerContent={(props) => <CustomDrawerContent {...props} />}
         >
-          <Drawer.Screen name="Main" component={BottomTabNavigator}
-            options={{ headerTitleAlign: 'center', headerShown: true }}
+          <Drawer.Screen name="HomeScreen" component={BottomTabNavigator}
+            options={{ headerTitleAlign: 'center', headerShown: false }}
           />
           <Drawer.Screen name="Drawer1" component={Drawer1} />
           <Drawer.Screen name="Drawer2" component={Drawer2} />

@@ -5,7 +5,7 @@ import {
   View,
   Image,
   TextInput,
-  Button,
+  SafeAreaView,
   TouchableOpacity,
 } from "react-native";
  
@@ -13,9 +13,18 @@ const ForgotScreen = ({ navigation }) => {
   const [email, setEmail] = useState("");
  
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
+            <View style={styles.Top}>
+                  <TouchableOpacity
+                      onPress={() => {navigation.goBack()}}
+                  >
+                      <Image source={require('../assets/images/back.png')}
+                        style={{ height: 30, width: 30}}
+                      />
+                  </TouchableOpacity>
+                </View>
       <View style={styles.inputView}>
-        <Text> Forgot Password </Text>
+        <Text> Forgot Password? </Text>
       <TextInput
               label={email}
               style={styles.input}
@@ -30,15 +39,18 @@ const ForgotScreen = ({ navigation }) => {
       <TouchableOpacity style={styles.loginBtn}>
         <Text style={styles.loginText}>Send</Text>
       </TouchableOpacity>
-    </View>
+    </SafeAreaView>
   );
 }
  
  export default ForgotScreen;
  
 const styles = StyleSheet.create({
+  Top: {
+    marginTop: 20,
+    marginLeft: -320
+  },
   container: {
-    flex: 1,
     backgroundColor: "#fff",
     alignItems: "center",
     justifyContent: "center",
@@ -64,6 +76,7 @@ const styles = StyleSheet.create({
     borderColor: "000",
     borderRadius: 30,
     width: "70%",
+    marginTop: 200,
     height: 45,
     marginBottom: 20,
     alignItems: "center",

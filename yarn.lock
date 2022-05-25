@@ -1087,6 +1087,16 @@
     "minimatch" "^3.0.4"
     "strip-json-comments" "^3.1.1"
 
+"@freakycoder/react-native-bounceable@^0.2.5", "@freakycoder/react-native-bounceable@>= 0.2.5":
+  "integrity" "sha512-J8WBOYxbm/um7SqXYneduZ08T5Kin9z+ixsS3wOLtpeNvKscuqmDEgsgefTYydeSIoI5dOfWmklnRRgu5i/8nA=="
+  "resolved" "https://registry.npmjs.org/@freakycoder/react-native-bounceable/-/react-native-bounceable-0.2.5.tgz"
+  "version" "0.2.5"
+
+"@freakycoder/react-native-switch-button@^0.1.1":
+  "integrity" "sha512-uKVOQg9ry4KTqjlPmC2NgjNsMV1ERjgscSH3n/IDbVrPXWsoaExeTA6JopNNQDG+TVBjC1P4P2+MoGrAojVh6A=="
+  "resolved" "https://registry.npmjs.org/@freakycoder/react-native-switch-button/-/react-native-switch-button-0.1.1.tgz"
+  "version" "0.1.1"
+
 "@hapi/hoek@^9.0.0":
   "integrity" "sha512-/c6rf4UJlmHlC9b5BaNvzAcFv7HZ2QHaV0D4/HNlBdvFnvQq8RI4kYdhyPCl7Xj+oWvTWQ8ujhqS53LIgAe6KQ=="
   "resolved" "https://registry.npmjs.org/@hapi/hoek/-/hoek-9.3.0.tgz"
@@ -5976,7 +5986,7 @@
     "kleur" "^3.0.3"
     "sisteransi" "^1.0.5"
 
-"prop-types@*", "prop-types@^15.7.2", "prop-types@^15.8.1":
+"prop-types@*", "prop-types@^15.5.7", "prop-types@^15.7.2", "prop-types@^15.8.1":
   "integrity" "sha512-oj87CgZICdulUohogVAR7AjlC0327U4el4L6eAvOqCeudMDVU0NThNaV+b9Df4dXgSP1gXMTnPdhfe/2qDH5cg=="
   "resolved" "https://registry.npmjs.org/prop-types/-/prop-types-15.8.1.tgz"
   "version" "15.8.1"
@@ -6056,6 +6066,18 @@
   "resolved" "https://registry.npmjs.org/react-is/-/react-is-16.13.1.tgz"
   "version" "16.13.1"
 
+"react-native-bouncy-checkbox@^2.1.10":
+  "integrity" "sha512-znKVSJQ71+NRTcOG9zuMXBRrUgFsUutGbQoOwasRyVlrJU4djX1Ny0CvCMgOy/Fh+lu9qdLtQFUQLfKwnWXt3Q=="
+  "resolved" "https://registry.npmjs.org/react-native-bouncy-checkbox/-/react-native-bouncy-checkbox-2.1.10.tgz"
+  "version" "2.1.10"
+
+"react-native-check-box@^2.1.7":
+  "integrity" "sha512-dPVOoz4jKs2je2HSHp7+XJXNyZFq8Kij7IHutigrQKzB550Dko6ZAQu/1mG1FzdUMFxxkZ2nX59KmbR0Co0T8Q=="
+  "resolved" "https://registry.npmjs.org/react-native-check-box/-/react-native-check-box-2.1.7.tgz"
+  "version" "2.1.7"
+  dependencies:
+    "prop-types" "^15.5.7"
+
 "react-native-codegen@^0.0.17":
   "integrity" "sha512-7GIEUmAemH9uWwB6iYXNNsPoPgH06pxzGRmdBzK98TgFBdYJZ7CBuZFPMe4jmHQTPOkQazKZ/w5O6/71JBixmw=="
   "resolved" "https://registry.npmjs.org/react-native-codegen/-/react-native-codegen-0.0.17.tgz"
@@ -6128,7 +6150,7 @@
     "prop-types" "^15.7.2"
     "yargs" "^16.1.1"
 
-"react-native@*", "react-native@>= 0.62", "react-native@>=0.57", "react-native@0.68.2":
+"react-native@*", "react-native@>= 0.55.x", "react-native@>= 0.62", "react-native@>=0.20.0", "react-native@>=0.57", "react-native@0.68.2":
   "integrity" "sha512-qNMz+mdIirCEmlrhapAtAG+SWVx6MAiSfCbFNhfHqiqu1xw1OKXdzIrjaBEPihRC2pcORCoCHduHGQe/Pz9Yuw=="
   "resolved" "https://registry.npmjs.org/react-native/-/react-native-0.68.2.tgz"
   "version" "0.68.2"
@@ -6197,7 +6219,7 @@
     "react-shallow-renderer" "^16.13.1"
     "scheduler" "^0.20.2"
 
-"react@*", "react@^16.0.0 || ^17.0.0", "react@^16.0.0 || ^17.0.0 || ^18.0.0", "react@^16.8.0 || ^17.0.0", "react@^17.0.0", "react@>=16.0", "react@17.0.2":
+"react@*", "react@^16.0.0 || ^17.0.0", "react@^16.0.0 || ^17.0.0 || ^18.0.0", "react@^16.8.0 || ^17.0.0", "react@^17.0.0", "react@>= 16.x.x", "react@>=16.0", "react@17.0.2":
   "integrity" "sha512-gnhPt75i/dq/z3/6q/0asP78D0u592D5L1pd7M8P+dck6Fu/jJeL6iVVK23fptSUZj8Vjf++7wXA8UNclGQcbA=="
   "resolved" "https://registry.npmjs.org/react/-/react-17.0.2.tgz"
   "version" "17.0.2"

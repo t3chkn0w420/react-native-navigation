@@ -10,11 +10,7 @@ import {
   Switch,
   KeyboardAvoidingView
 } from 'react-native';
-// import { useNavigation } from '@react-navigation/core';
 
-// import CheckBox from '@react-native-community/checkbox';
-// import CustomSwitch from 'react-native-custom-switch';
-// import Checkbox from 'react-native-modest-checkbox';
 // import Spinner from 'react-native-loading-spinner-overlay';
 // import {AuthContext} from '../context/AuthContext';
 
@@ -31,7 +27,19 @@ const LoginScreen = ({ navigation }) => {
   // const [toggleCheckBox, setToggleCheckBox] = useState(false);
   // const [agree, setAgree] = useState(false);
   // const {isLoading, login} = useContext(AuthContext);
-
+  
+  const checkTextInput = () => {
+    if (!email.trim()) {
+      alert('Please Enter Email');
+      return;
+    }
+    if (!password.trim()) {
+      alert('Please Enter Password');
+      return;
+    }
+    alert('Success');
+  };
+  
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.TopView}>
@@ -277,7 +285,7 @@ const styles = StyleSheet.create({
     // marginTop: 8,
     textAlign: 'center',
     color: '#fff',
-    fontWeight: 'bold',
+    // fontWeight: 'bold',
     fontSize: 25
   },
   container: {
@@ -300,11 +308,11 @@ const styles = StyleSheet.create({
   },
   links: {
     color: '#000',
-    fontWeight: 'bold',
+    // fontWeight: 'bold',
   },
   link: {
     color: 'black',
-    fontWeight: 'bold',
+    // fontWeight: 'bold',
     marginLeft: 50
   },
 });

@@ -1,57 +1,289 @@
-import React, { useState } from "react";
-import { SafeAreaView, Text, Button, TextInput, StyleSheet, TouchableOpacity } from "react-native";
-
-import Home from '../screens/Home';
-
+import React, {useContext, useState} from 'react';
+import {
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+  StyleSheet,
+  Image,
+  SafeAreaView,
+} from 'react-native';
+import CheckBox from 'react-native-check-box';
+// import CheckBox from '@react-native-community/checkbox';
+const initialState = {
+  react: false,
+  next: false,
+  vue: false,
+  angular: false,
+};
 const RegisterScreen = ({ navigation }) => {
-  const [name, setName] = React.useState('');
-   const [email, setEmail] = React.useState('');
-   const [password, setPassword] = React.useState('');
- 
-  //  const { signIn } = React.useContext(AuthContext);
+  const [fullname, setFullname] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [agree, setAgree] = useState('');
+  // const [isChecked, setIsChecked] = useState('false');
+  // const [toggleCheckBox, setToggleCheckBox] = useState(false)
+  // const [isSelected, setSelection] = useState('false');
+  // const [secure, setSecure] = useState('true');
   
-  const RegisterPress = () => {
-    navigation.navigate('DrawerTab');
-  }
-
-   return (
-     <SafeAreaView style={ styles.center }>
-       <TextInput
-         placeholder="Name"
-         value={name}
-         onChangeText={setName}
-       />
-       <TextInput
-         placeholder="Email"
-         value={email}
-         onChangeText={setEmail}
-       
-      />
-       <TextInput
-         placeholder="Password"
-         value={password}
-         onChangeText={setPassword}
-         secureTextEntry
-       />
-       {/* <Button title="Register" onPress={() => RegisterScreen({ name, email, password })} /> */}
-       <>
-       <TouchableOpacity 
-        // onPress={'Register'}>
-         onPress={() => navigation.navigate('DrawerNavigator')}>
-        
-          <Text> Register </Text>
+  const checkTextInput = () => {
+    if (!fullname.trim()) {
+      alert('Please Enter Full Name');
+      return;
+    }
+    if (!email.trim()) {
+      alert('Please Enter Email');
+      return;
+    }
+    if (!password.trim()) {
+      alert('Please Enter Password');
+      return;
+    }
+    alert('Success');
+  };
+  
+  return (
+    <SafeAreaView style={styles.container}>
+                <View style={styles.Top}>
+                  <TouchableOpacity
+                      onPress={() => {navigation.goBack()}}
+                  >
+                      <Image source={require('../assets/images/back.png')}
+                        style={{ height: 30, width: 30}}
+                      />
+                  </TouchableOpacity>
+                </View>
+      <View style={styles.TopView}>
+          <Image
+          source={require('../assets/images/logo.png')}  
+          style={styles.imagesStyle}
+        />
+      </View>
+    
+    <View style={{flexDirection: 'row', marginTop: 20}}>
+          <Text>Already Have An Account? </Text>
+          <TouchableOpacity onPress={() => navigation.navigate('Login')}>
+            <Text style={styles.links}>Login</Text>
           </TouchableOpacity>
-          </>
-     </SafeAreaView>
-   );
- }
+        </View>
+        
+      {/* <Spinner visible={isLoading} /> */}
+      <View style={styles.wrapper}>
+              <View style={styles.sectionStyle}>
+                <TextInput
+                  label={fullname}
+                  style={styles.input}
+                  value={fullname}
+                  underlineColorAndroid="transparent"
+                  placeholder="Enter Full Name"
+                  onChangeText={text => setFullname(text)}
+                  onSubmitEditing={(value) => setFullname(value.nativeEvent.text)}
+                />
+              </View>      
+        <View style={styles.sectionStyle}>
+            <TextInput
+              label={email}
+              underlineColorAndroid="transparent"
+              style={styles.input}
+              value={email}
+              placeholder="Enter email"
+              onChangeText={text => setEmail(text)}
+              keyboardType="email-address"
+              onSubmitEditing={(value) => setName(value.nativeEvent.text)}
+            />
+        </View>
+        {/* <Text>Welcome: {name}</Text> */}
+        <View style={styles.sectionStyle}>
+            <TouchableOpacity>
+              <Image
+                  source={{
+                    uri:
+                      'https://img.icons8.com/material-two-tone/344/closed-eye.png',
+                  }}
+                 />
+            </TouchableOpacity>
+          <TextInput
+            style={styles.input}
+            value={password}
+            placeholder="Enter password"
+            onChangeText={text => setPassword(text)}
+            secureTextEntry
+          />
+
+        </View>
+        
+        <View style={{flexDirection: 'row', marginTop: 10}}>
+            <CheckBox
+              // value={isChecked}
+              // onValueChange={setIsChecked}
+              // style={styles.checkbox}
+              //     style={{flex: 1, padding: 10}}
+              //     onClick={()=>{
+              //       this.setState({
+              //           isChecked:!this.state.isChecked
+              //       })
+              //     }}
+              //     isChecked={this.state.isChecked}
+              //     leftText={"CheckBox"}
+            
+              //   disabled={false}
+              //   value={toggleCheckBox}
+              //   onValueChange={(newValue) => setToggleCheckBox(newValue)}
+               
+              // value={isSelected}
+              // onValueChange={setSelection}
+              // style={styles.checkbox}
+              
+              onPress={() => setAgree(agree)}
+              value={agree}
+              onClick={() => setAgree(!agree)}
+              onValueChange={() => setAgree(agree)}
+              color={agree ? "#4630EB" : undefined}
+            />
+           <Text> I have read and agree to the privacy policy terms of service and community guidelines </Text>
+        </View>
+        
+        <View style={ styles.logButton}>
+            <TouchableOpacity 
+            onPress={() => navigation.navigate('Home')}
+              title="Register"
+              // disabled={!agree}
+            // {/* onPress={() => {
+            //     login(email, password);
+            //   }} */}
+              >
+                <Text style={styles.logText}>Register</Text>
+              </TouchableOpacity>
+        </View>
+      </View>
+    </SafeAreaView>
+  );
+};
 
 const styles = StyleSheet.create({
-  center: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    textAlign: "center",
+  Top: {
+    marginTop: 20,
+    marginLeft: -320
+  },
+  TopView: {
+    marginTop: 100
+  },
+  sectionStyle: {
+    width: 300,
+    borderColor: '#ccc',
+    flexDirection: 'row',
+    borderWidth: 1.5,
+    borderRadius: 5,
+    margin: 8,
+    borderRadius: 10
+    // padding: 109/
+    // mareginTop: 15
+  },
+  imageStyle: {
+    padding: 10,
+    margin: 5,
+    height: 35,
+    width: 35,
+    resizeMode: 'stretch',
+    alignItems: 'center',
+  },
+  eyeStyle: {
+    // padding: 10,
+    marginTop: 10,
+    marginLeft: 90,
+    margin: 5,
+    height: 25,
+    width: 25,
+    resizeMode: 'stretch',
+    alignItems: 'center',
+  },
+  imagesStyle: {
+    height: 50,
+    width: 250
+  },
+  buttonGPlusStyle: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#ccc',
+    borderWidth: 0.5,
+    color: '#000',
+    borderColor: '#fff',
+    height: 40,
+    borderRadius: 5,
+    width: 120,
+    margin: 5,
+  },
+  buttonFacebookStyle: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#ccc',
+    borderWidth: 0.5,
+    borderColor: '#fff',
+    color: '#000',
+    width: 120,
+    height: 40,
+    borderRadius: 5,
+    margin: 5,
+  },
+  buttonImageIconStyle: {
+    padding: 10,
+    margin: 5,
+    height: 25,
+    width: 25,
+    resizeMode: 'stretch',
+  },
+  buttonTextStyle: {
+    color: '#000',
+    marginBottom: 4,
+    marginLeft: 10,
+  },
+  buttonIconSeparatorStyle: {
+    backgroundColor: '#fff',
+    width: 1,
+    height: 40,
+  },
+  logButton: {
+    marginTop: 20,
+    backgroundColor: '#3d3d3d',
+    height: 50,
+    justifyContent: 'center',
+    marginLeft: 35,
+    width: 250,
+    borderRadius: 10
+  },
+  logText: {
+    // marginTop: 8,
+    textAlign: 'center',
+    color: '#fff',
+    fontWeight: 'bold',
+    fontSize: 25
+  },
+  container: {
+    // flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  wrapper: {
+    marginTop: 10,
+    width: '80%',
+  },
+  input: {
+    // marginTop: 15
+    // marginBottom: 12,
+    // width: 270,
+    // borderWidth: 1,
+    // borderColor: '#bbb',
+    // borderRadius: 5,
+    // paddingHorizontal: 14,
+  },
+  links: {
+    color: '#000',
+    fontWeight: 'bold',
+  },
+  link: {
+    color: 'black',
+    // fontWeight: 'bold',
+    marginLeft: 50
   },
 });
 

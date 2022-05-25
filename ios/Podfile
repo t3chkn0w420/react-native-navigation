@@ -21,6 +21,8 @@ target 'testApp' do
 
   pod 'RNGestureHandler', :path => '../node_modules/react-native-gesture-handler'
 
+  pod 'RNCCheckbox', :path => '../node_modules/@react-native-community/checkbox'
+
   target 'testAppTests' do
     inherit! :complete
     # Pods for testing

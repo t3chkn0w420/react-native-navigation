@@ -4,11 +4,12 @@ import { Text, StyleSheet } from 'react-native'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 
 import Analytics from '../screens/Tab/Analytics';
-import About from '../screens/About';
-import Home from '../screens/Home';
-import Settings from '../screens/Settings';
+import About from '../screens/screens/About';
+import HomeScreen from '../screens/HomeScreen';
+import Settings from '../screens/screens/Settings';
 import Profile from '../screens/Tab/Profile';
 
+import DrawerNavigator from './DrawerNavigator';
 const Tab = createBottomTabNavigator()
 
 // const BottomTabNavigator = () => {
@@ -49,7 +50,7 @@ const BottomTabNavigator = () => {
         
         
       <Tab.Screen name="About" component={About} />
-      <Tab.Screen name="Home" component={Home} 
+      <Tab.Screen name="Home" component={HomeScreen} 
         options={{
           headerTitleAlign: 'center'
         }}

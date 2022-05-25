@@ -10,6 +10,8 @@
     "lint": "eslint ."
   },
   "dependencies": {
+    "@freakycoder/react-native-bounceable": "^0.2.5",
+    "@freakycoder/react-native-switch-button": "^0.1.1",
     "@react-native-community/checkbox": "^0.5.12",
     "@react-native-community/masked-view": "^0.1.11",
     "@react-navigation/bottom-tabs": "^6.3.1",
@@ -19,6 +21,8 @@
     "@react-navigation/stack": "^6.2.1",
     "react": "17.0.2",
     "react-native": "0.68.2",
+    "react-native-bouncy-checkbox": "^2.1.10",
+    "react-native-check-box": "^2.1.7",
     "react-native-custom-switch": "^1.0.7",
     "react-native-gesture-handler": "^2.4.2",
     "react-native-modest-checkbox": "^3.3.0",
