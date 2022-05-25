@@ -1,10 +1,12 @@
 import React from "react";
 import { View, StyleSheet, Text } from "react-native";
+// import { useAuth } from "../AuthContext";
 
-const Contact = () => {
+const Drawer3 = () => {
+  const [user] = useAuth();
   return (
     <View style={styles.center}>
-      <Text>This is the contact screen</Text>
+      <Text>{user.displayName}</Text>
     </View>
   );
 };
@@ -18,4 +20,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Contact;
+export default Drawer3;

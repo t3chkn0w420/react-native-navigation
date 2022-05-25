@@ -33,39 +33,35 @@ export default class LoginScreen extends Component {
 
     if ((email.length==0) || (password.length==0)){
       alert("Required Field Is Missing!");
-    }else{
-      var APIURL = "http://192.168.1.11/api/auth/signin";
+    }
+    else{
+      var InsertAPIURL = "http://192.168.1.11/api/auth/signin";   //API to render signup
 
       var headers = {
-        'Accept' : 'application/json',
-        'Content-Type' : 'application/json'
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
       };
+      
       var Data ={
         email: email,
         password: password
       };
-      fetch(APIURL,{
-        method: 'POST',
-        headers: headers,
-        body: JSON.stringify({
-          email: email,
-          password: password,
-        })
-      });
-      
-        if(Data.status !== 'success'){
-          console.log(Data);
-          alert('User Login Successfully');
-          alert('welcome' +   email);
-        } else {
-          alert('User/Email Not Registered');
-        }
-        console.log(Data);
-      {
-        this.props.navigation.navigate("Home")
-      }
-      }
-    } 
+
+    fetch(InsertAPIURL,{
+        method:'POST',
+        headers:headers,
+        body: JSON.stringify(Data) //convert data to JSON
+    })
+    .then((response)=>response.text()) //check response type of API (CHECK OUTPUT OF DATA IS IN JSON)
+    .then((response)=>{
+      alert(response[0].Message);       // If data is in JSON => Display alert msg
+      this.props.navigation.navigate("Home"); //Navigate to next screen if authentications are valid
+    })
+    .catch((error)=>{
+        alert("Error Occured" + error);
+    })
+    }
+  }
     
     updateSecureTextEntry(){
       this.setState({

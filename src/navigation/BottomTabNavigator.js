@@ -1,13 +1,13 @@
 import * as React from 'react'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
-import { Text, StyleSheet } from 'react-native'
+import { Text, StyleSheet, Image } from 'react-native'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 
-import Analytics from '../screens/Tab/Analytics';
-import About from '../screens/screens/About';
+import Analytics from '../Tab/Analytics';
+import About from '../Tab/About';
 import HomeScreen from '../screens/HomeScreen';
-import Settings from '../screens/screens/Settings';
-import Profile from '../screens/Tab/Profile';
+import Settings from '../Tab/Settings';
+import Profile from '../Tab/Profile';
 
 import DrawerNavigator from './DrawerNavigator';
 const Tab = createBottomTabNavigator()
@@ -43,20 +43,43 @@ const Tab = createBottomTabNavigator()
 const BottomTabNavigator = () => {
   return (
     <Tab.Navigator initialRouteName='Home' screenOptions={{ headerShown: false }}>
+    
       <Tab.Screen name="Analytics" component={Analytics} 
            options={{ tabBarIcon: ({ color, size }) => (
-            <Ionicons name="analytics-outline" color={'#000'} size={40} />
-          ), }}/>
+            <Image source={require('../assets/images/analytics.png')} style={{
+              width: 30,
+              height: 30
+            }}></Image>
+          ), navigationOptions: { title: 'Analytics Screen' } }}/>
+  
         
+      <Tab.Screen name="About" component={About} options={{ tabBarIcon: ({ color, size }) => (
+          <Image source={require('../assets/images/messages.png')} style={{
+            width: 30,
+            height: 30
+          }}></Image>
+        )}}/>
+                
+      <Tab.Screen name="Home" component={HomeScreen} options={{ tabBarIcon: ({ color, size }) => (
+          <Image source={require('../assets/images/home.png')} style={{
+            width: 30,
+            height: 30
+          }}></Image>
+        )}}/>
         
-      <Tab.Screen name="About" component={About} />
-      <Tab.Screen name="Home" component={HomeScreen} 
-        options={{
-          headerTitleAlign: 'center'
-        }}
-      />
-      <Tab.Screen name="Settings" component={Settings} />
-      <Tab.Screen name="Profile" component={Profile} />
+      <Tab.Screen name="Settings" component={Settings} options={{ tabBarIcon: ({ color, size }) => (
+          <Image source={require('../assets/images/settings.png')} style={{
+            width: 30,
+            height: 30
+          }}></Image>
+        )}}/>
+                
+      <Tab.Screen name="Profile" component={Profile} options={{ tabBarIcon: ({ color, size }) => ( 
+                        <Image source={require('../assets/images/profile.png')} style={{
+                          width: 30,
+                          height: 30
+                        }}></Image>
+                      )}}/>
     </Tab.Navigator>
     
   )

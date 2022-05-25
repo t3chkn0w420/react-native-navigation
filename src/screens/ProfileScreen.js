@@ -1,12 +1,10 @@
 import React from "react";
 import { View, StyleSheet, Text } from "react-native";
-// import { useAuth } from "../AuthContext";
 
-const Profile = () => {
-  const [user] = useAuth();
+const ProfileScreen = () => {
   return (
     <View style={styles.center}>
-      <Text>{user.displayName}</Text>
+      <Text>This is the ProfileScreen screen</Text>
     </View>
   );
 };
@@ -20,4 +18,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Profile;
+export default ProfileScreen;

@@ -1,49 +1,30 @@
-import React from "react";
-import { View, StyleSheet, Text } from "react-native";
-import SwitchButton from "@freakycoder/react-native-switch-button";
+import React, {useContext} from 'react';
+import {Button, StyleSheet, Text, View} from 'react-native';
+// import Spinner from 'react-native-loading-spinner-overlay';
+// import {AuthContext} from '../context/AuthContext';
 
-function CustomDrawerContent({props, navigation}) {
+const HomeScreen = () => {
+  // const {userInfo, isLoading, logout} = useContext(AuthContext);
+
   return (
-    <DrawerContentScrollView {...props}>
-      <DrawerItemList {...props} />
-      <DrawerItem
-        label="Close drawer"
-        onPress={() => props.navigation.closeDrawer()}
-      />
-      <DrawerItem
-        label="Open drawer"
-        onPress={() => props.navigation.openDrawer()}
-      />
-    </DrawerContentScrollView>
-  );
-}
-
-
-const HomeScreen = ({navigation, props}) => {
-  return (
-    <View style={styles.center}>
-       <SwitchButton
-        onPress={() => navigation.toggleDrawer()}
-          // onPress={() => {
-            // navigation.toggleDrawer()}
-            //   props.navigation.closeDrawer();
-            //   props.navigation.openDrawer();
-            // }}
-          text="ReactScript"
-          inactiveImageSource={require("../assets/images/menu.png")}
-          activeImageSource={require("../assets/images/close.png")}
-          // onPress={(isActive: true) => console.log(isActive)}
-        />
+    <View style={styles.container}>
+      {/* <Spinner visible={isLoading} /> */}
+      <Text> HomeScreen </Text>
+      {/* <Text style={styles.welcome}>Welcome {userInfo.user.name}</Text> */}
+      {/* <Button title="Logout" color="red" onPress={logout} /> */}
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  center: {
+  container: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    textAlign: "center",
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  welcome: {
+    fontSize: 18,
+    marginBottom: 8,
   },
 });
 

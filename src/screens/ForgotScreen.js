@@ -43,7 +43,6 @@ const ForgotScreen = ({ navigation }) => {
   );
 }
  
- export default ForgotScreen;
  
 const styles = StyleSheet.create({
   Top: {
@@ -110,3 +109,5 @@ const styles = StyleSheet.create({
     backgroundColor: "#3d3d3d",
   },
 });
+
+export default ForgotScreen;

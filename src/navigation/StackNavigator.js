@@ -11,7 +11,6 @@ import ForgotScreen from '../screens/ForgotScreen';
 
 import BottomTabNavigator from './BottomTabNavigator';
 import DrawerNavigator from './DrawerNavigator';
-// import Profile from '../src/screens/Tab/Profile';
 
 const Stack = createNativeStackNavigator();
 
@@ -26,7 +25,6 @@ const Navigator = ({ navigation }) => {
              <Stack.Group screenOptions={{ headerShown: false }}>
                <Stack.Screen name="Login" component={LoginScreen} />
                <Stack.Screen name="Register" component={RegisterScreen} />
-                <Stack.Screen name="Forgot" component={ForgotScreen} />
                 <Stack.Screen name="Home" component={DrawerNavigator} />
              </Stack.Group>
        </Stack.Navigator>
@@ -36,7 +34,7 @@ const Navigator = ({ navigation }) => {
  return (
    <Stack.Navigator>
       <Stack.Group>
-         <Stack.Screen name="Profile" component={Profile} />
+         {/* <Stack.Screen name="Profile" component={Profile} /> */}
        </Stack.Group>
    </Stack.Navigator>
   )

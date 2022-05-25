@@ -9,155 +9,115 @@ import {
   SafeAreaView,
 } from 'react-native';
 import CheckBox from 'react-native-check-box';
-// import CheckBox from '@react-native-community/checkbox';
-const initialState = {
-  react: false,
-  next: false,
-  vue: false,
-  angular: false,
-};
+import { AsyncStorage } from 'react-native';
+import Spinner from 'react-native-loading-spinner-overlay';
+import {AuthContext} from '../context/AuthContext';
+
 const RegisterScreen = ({ navigation }) => {
   const [fullname, setFullname] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [agree, setAgree] = useState('');
-  // const [isChecked, setIsChecked] = useState('false');
-  // const [toggleCheckBox, setToggleCheckBox] = useState(false)
-  // const [isSelected, setSelection] = useState('false');
-  // const [secure, setSecure] = useState('true');
+  const [agree, setAgree] = useState('true');
   
-  const checkTextInput = () => {
-    if (!fullname.trim()) {
-      alert('Please Enter Full Name');
-      return;
-    }
-    if (!email.trim()) {
-      alert('Please Enter Email');
-      return;
-    }
-    if (!password.trim()) {
-      alert('Please Enter Password');
-      return;
-    }
-    alert('Success');
-  };
+  const {isLoading, register} = useContext(AuthContext);
   
-  return (
-    <SafeAreaView style={styles.container}>
-                <View style={styles.Top}>
-                  <TouchableOpacity
-                      onPress={() => {navigation.goBack()}}
-                  >
-                      <Image source={require('../assets/images/back.png')}
-                        style={{ height: 30, width: 30}}
-                      />
-                  </TouchableOpacity>
-                </View>
-      <View style={styles.TopView}>
-          <Image
-          source={require('../assets/images/logo.png')}  
-          style={styles.imagesStyle}
-        />
-      </View>
-    
-    <View style={{flexDirection: 'row', marginTop: 20}}>
-          <Text>Already Have An Account? </Text>
-          <TouchableOpacity onPress={() => navigation.navigate('Login')}>
-            <Text style={styles.links}>Login</Text>
-          </TouchableOpacity>
-        </View>
-        
-      {/* <Spinner visible={isLoading} /> */}
-      <View style={styles.wrapper}>
-              <View style={styles.sectionStyle}>
-                <TextInput
-                  label={fullname}
-                  style={styles.input}
-                  value={fullname}
-                  underlineColorAndroid="transparent"
-                  placeholder="Enter Full Name"
-                  onChangeText={text => setFullname(text)}
-                  onSubmitEditing={(value) => setFullname(value.nativeEvent.text)}
-                />
-              </View>      
-        <View style={styles.sectionStyle}>
-            <TextInput
-              label={email}
-              underlineColorAndroid="transparent"
-              style={styles.input}
-              value={email}
-              placeholder="Enter email"
-              onChangeText={text => setEmail(text)}
-              keyboardType="email-address"
-              onSubmitEditing={(value) => setName(value.nativeEvent.text)}
-            />
-        </View>
-        {/* <Text>Welcome: {name}</Text> */}
-        <View style={styles.sectionStyle}>
-            <TouchableOpacity>
-              <Image
-                  source={{
-                    uri:
-                      'https://img.icons8.com/material-two-tone/344/closed-eye.png',
-                  }}
-                 />
-            </TouchableOpacity>
-          <TextInput
-            style={styles.input}
-            value={password}
-            placeholder="Enter password"
-            onChangeText={text => setPassword(text)}
-            secureTextEntry
+    return (
+      <SafeAreaView style={styles.container}>
+      <Spinner visible={isLoading} />
+                  <View style={styles.Top}>
+                    <TouchableOpacity
+                        onPress={() => {navigation.goBack()}}
+                    >
+                        <Image source={require('../assets/images/back.png')}
+                          style={{ height: 30, width: 30}}
+                        />
+                    </TouchableOpacity>
+                  </View>
+        <View style={styles.TopView}>
+            <Image
+            source={require('../assets/images/logo.png')}  
+            style={styles.imagesStyle}
           />
-
         </View>
-        
-        <View style={{flexDirection: 'row', marginTop: 10}}>
-            <CheckBox
-              // value={isChecked}
-              // onValueChange={setIsChecked}
-              // style={styles.checkbox}
-              //     style={{flex: 1, padding: 10}}
-              //     onClick={()=>{
-              //       this.setState({
-              //           isChecked:!this.state.isChecked
-              //       })
-              //     }}
-              //     isChecked={this.state.isChecked}
-              //     leftText={"CheckBox"}
-            
-              //   disabled={false}
-              //   value={toggleCheckBox}
-              //   onValueChange={(newValue) => setToggleCheckBox(newValue)}
-               
-              // value={isSelected}
-              // onValueChange={setSelection}
-              // style={styles.checkbox}
-              
-              onPress={() => setAgree(agree)}
-              value={agree}
-              onClick={() => setAgree(!agree)}
-              onValueChange={() => setAgree(agree)}
-              color={agree ? "#4630EB" : undefined}
-            />
-           <Text> I have read and agree to the privacy policy terms of service and community guidelines </Text>
-        </View>
-        
-        <View style={ styles.logButton}>
-            <TouchableOpacity 
-            onPress={() => navigation.navigate('Home')}
-              title="Register"
-              // disabled={!agree}
-            // {/* onPress={() => {
-            //     login(email, password);
-            //   }} */}
-              >
-                <Text style={styles.logText}>Register</Text>
+      
+      <View style={{flexDirection: 'row', marginTop: 20}}>
+            <Text>Already Have An Account? </Text>
+            <TouchableOpacity onPress={() => navigation.navigate('Login')}>
+              <Text style={styles.links}>Login</Text>
+            </TouchableOpacity>
+          </View>
+          
+        {/* <Spinner visible={isLoading} /> */}
+        <View style={styles.wrapper}>
+                <View style={styles.sectionStyle}>
+                  <TextInput
+                    label={fullname}
+                    style={styles.input}
+                    value={fullname}
+                    underlineColorAndroid="transparent"
+                    placeholder="Enter Full Name"
+                    onChangeText={text => setFullname(text)}
+                    onSubmitEditing={(value) => setFullname(value.nativeEvent.text)}
+                  />
+                </View>      
+          <View style={styles.sectionStyle}>
+              <TextInput
+                label={email}
+                underlineColorAndroid="transparent"
+                style={styles.input}
+                value={email}
+                placeholder="Enter email"
+                onChangeText={text => setEmail(text)}
+                keyboardType="email-address"
+                onSubmitEditing={(value) => setName(value.nativeEvent.text)}
+              />
+          </View>
+          {/* <Text>Welcome: {name}</Text> */}
+          <View style={styles.sectionStyle}>
+              <TouchableOpacity>
+                <Image
+                    source={{
+                      uri:
+                        'https://img.icons8.com/material-two-tone/344/closed-eye.png',
+                    }}
+                   />
               </TouchableOpacity>
+            <TextInput
+              style={styles.input}
+              value={password}
+              placeholder="Enter password"
+              onChangeText={text => setPassword(text)}
+              secureTextEntry
+            />
+  
+          </View>
+          
+          <View style={{flexDirection: 'row', marginTop: 10}}>
+              <CheckBox
+                checked={true}
+                onPress={() => setAgree(agree)}
+                value={agree}
+                onClick={() => setAgree(!agree)}
+                onValueChange={() => setAgree(agree)}
+                color={agree ? "#4630EB" : undefined}
+              />
+             <Text> I have read and agree to the privacy policy terms of service and community guidelines </Text>
+          </View>
+          
+          <View style={ styles.logButton}>
+              <TouchableOpacity 
+                title="Register"
+                // disabled={!agree}
+              onPress={() => {
+                register(fullname, email, password);
+              }}
+                >
+                  <Text style={styles.logText}>Register</Text>
+                </TouchableOpacity>
+          </View>
         </View>
-      </View>
-    </SafeAreaView>
-  );
+      </SafeAreaView>
+    );
 };
 
 const styles = StyleSheet.create({
