@@ -7,11 +7,12 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Home from '../screens/Home';
 import LoginScreen from '../screens/LoginScreen';
 import RegisterScreen from '../screens/RegisterScreen';
+import ForgotScreen from '../screens/ForgotScreen';
 // import Profile from '../src/screens/Tab/Profile';
 
 const Stack = createNativeStackNavigator();
 
-const Navigator = () => {
+const Navigator = ({ navigation }) => {
    // const [user] = useAuth();
    const isLoggedIn = false;
    
@@ -22,6 +23,8 @@ const Navigator = () => {
              <Stack.Group screenOptions={{ headerShown: false }}>
                <Stack.Screen name="Login" component={LoginScreen} />
                <Stack.Screen name="Register" component={RegisterScreen} />
+                <Stack.Screen name="Forgot" component={ForgotScreen} />
+               
              </Stack.Group>
        </Stack.Navigator>
      )
@@ -36,5 +39,4 @@ const Navigator = () => {
    </Stack.Navigator>
   )
  }
- 
  export default Navigator;

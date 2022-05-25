@@ -14,14 +14,10 @@ const Stack = createNativeStackNavigator();
 import DrawerNavigator from './src/navigation/DrawerNavigator';
 import Navigator from './src/navigation/StackNavigator';
 
-function navigate(){
-    navigation.navigate('RegisterScreen');    
-}
-
 const App = () => {
   return (
     <NavigationContainer>
-          <Stack.Navigator initialRouteName='Navigator' screenOptions={{ headerShown: false }}>
+          <Stack.Navigator screenOptions={{ headerShown: false }}>
               <Stack.Screen name="Navigator"  component={Navigator} />
               <Stack.Screen name="DrawerNavigator"  component={DrawerNavigator} />
           </Stack.Navigator>
