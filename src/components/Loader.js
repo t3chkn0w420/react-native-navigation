@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flexDirection: 'column',
     justifyContent: 'space-around',
-    backgroundColor: '#00000040',
+    backgroundColor: '#000040',
   },
   activityIndicatorWrapper: {
     backgroundColor: '#FFFFFF',
@@ -51,6 +51,6 @@ const styles = StyleSheet.create({
   },
   activityIndicator: {
     alignItems: 'center',
-    height: 80,
+    height: 150,
   },
 });

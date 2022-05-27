@@ -23,6 +23,8 @@ target 'testApp' do
 
   pod 'RNCCheckbox', :path => '../node_modules/@react-native-community/checkbox'
 
+  pod 'RNCAsyncStorage', :path => '../node_modules/@react-native-async-storage/async-storage'
+
   target 'testAppTests' do
     inherit! :complete
     # Pods for testing

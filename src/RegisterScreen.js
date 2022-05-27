@@ -1,35 +1,40 @@
-import React, {useState, createRef} from 'react';
+import React, {useContext, createRef, useState} from 'react';
 import {
-  StyleSheet,
-  TextInput,
-  View,
   Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+  StyleSheet,
   Image,
+  Switch,
+  SafeAreaView,
   KeyboardAvoidingView,
   Keyboard,
-  TouchableOpacity,
   ScrollView,
+  AsyncStorage
 } from 'react-native';
 
-import Loader from './components/Loader';
+import CheckBox from 'react-native-check-box';
 
-const RegisterScreen = (props) => {
-  const [userFullname, setUserFullname] = useState('');
+const RegisterScreen = ({ navigation, props }) => {
+  const [userName, setUserName] = useState('');
   const [userEmail, setUserEmail] = useState('');
-  const [userAge, setUserAge] = useState('');
-  const [userAddress, setUserAddress] = useState('');
+  const [userPassword, setUserPassword] = useState('');
+  const [agree, setAgree] = useState('');
   const [loading, setLoading] = useState(false);
   const [errortext, setErrortext] = useState('');
-  const [isRegistraionSuccess, setIsRegistraionSuccess] = useState(false);
-
-  const nameInputRef = createRef();
+  
+  const [
+    isRegistraionSuccess,
+    setIsRegistraionSuccess
+  ] = useState(false);
+ 
   const emailInputRef = createRef();
-  const ageInputRef = createRef();
-  const addressInputRef = createRef();
-
-  const handleSubmitButton = () => {
+  const passwordInputRef = createRef();
+  
+  const handleRegister = () => {
     setErrortext('');
-    if (!userFullname) {
+    if (!userName) {
       alert('Please fill Name');
       return;
     }
@@ -37,22 +42,25 @@ const RegisterScreen = (props) => {
       alert('Please fill Email');
       return;
     }
-    if (!userAge) {
-      alert('Please fill Age');
-      return;
-    }
-    if (!userAddress) {
-      alert('Please fill Address');
+    if (!userPassword) {
+      alert('Please fill Password');
       return;
     }
     //Show Loader
     setLoading(true);
     var dataToSend = {
-      user_name: userFullname,
-      user_email: userEmail,
-      user_age: userAge,
-      user_address: userAddress,
+      name: userName,
+      email: userEmail,
+      password: userPassword,
     };
+    
+    const storeData = async (value) => {
+      try {
+        await AsyncStorage.setItem('dataToSend', value)
+      } catch (e) {
+      }
+      console.log('Done.')
+    }
     var formBody = [];
     for (var key in dataToSend) {
       var encodedKey = encodeURIComponent(key);
@@ -60,30 +68,29 @@ const RegisterScreen = (props) => {
       formBody.push(encodedKey + '=' + encodedValue);
     }
     formBody = formBody.join('&');
-
-    fetch('https://182.168.1.11:4200/api/auth/signup', {
+ 
+    fetch('http://192.168.1.11:4200/api/auth/signup', {
       method: 'POST',
       body: formBody,
       headers: {
-        //Header Defination
-        'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
+        'Content-Type':
+        'application/x-www-form-urlencoded;charset=UTF-8',
       },
     })
       .then((response) => response.json())
       .then((responseJson) => {
-        //Hide Loader
         setLoading(false);
         console.log(responseJson);
-        // If server response message same as Data Matched
-        if (responseJson.status == 1) {
+        if (responseJson.status === 'success') {
           setIsRegistraionSuccess(true);
-          console.log('Registration Successful. Please Login to proceed');
+          console.log(
+            'Registration Successful. Please Login to proceed'
+          );
         } else {
-          setErrortext('Registration Unsuccessful');
+          setErrortext(responseJson.msg);
         }
       })
       .catch((error) => {
-        //Hide Loader
         setLoading(false);
         console.error(error);
       });
@@ -98,145 +105,385 @@ const RegisterScreen = (props) => {
         }}>
         <Image
           source={require('../Image/success.png')}
-          style={{height: 150, resizeMode: 'contain', alignSelf: 'center'}}
+          style={{
+            height: 150,
+            resizeMode: 'contain',
+            alignSelf: 'center'
+          }}
         />
-        <Text style={styles.successTextStyle}>Registration Successful.</Text>
+        <Text style={styles.successTextStyle}>
+          Registration Successful
+        </Text>
         <TouchableOpacity
           style={styles.buttonStyle}
           activeOpacity={0.5}
-          onPress={() => props.navigation.navigate('LoginScreen')}>
+          onPress={() => props.navigation.navigate('Login')}>
           <Text style={styles.buttonTextStyle}>Login Now</Text>
         </TouchableOpacity>
       </View>
     );
   }
-  return (
-    <View style={{flex: 1, backgroundColor: '#ccc'}}>
-      <Loader loading={loading} />
-      <ScrollView
-        keyboardShouldPersistTaps="handled"
-        contentContainerStyle={{
-          justifyContent: 'center',
-          alignContent: 'center',
-        }}>
-        <View style={{alignItems: 'center'}}>
-          <Image
-            source={require('./assets/images/logo.png')}
-            style={{
-              width: '50%',
-              height: 100,
-              resizeMode: 'contain',
-              margin: 30,
-            }}
+    return (
+      <SafeAreaView style={styles.container}>
+          <View style={styles.Top}>
+            <TouchableOpacity
+                onPress={() => {navigation.goBack()}}
+            >
+                <Image source={require('./assets/images/back.png')}
+                  style={{ height: 30, width: 30}}
+                />
+            </TouchableOpacity>
+          </View>
+        <View style={styles.TopView}>
+            <Image
+            source={require('./assets/images/logo.png')}  
+            style={styles.imagesStyle}
           />
         </View>
-        <KeyboardAvoidingView enabled>
-          <View style={styles.SectionStyle}>
+      
+      <View style={{flexDirection: 'row', marginTop: 20}}>
+            <Text>Already Have An Account? </Text>
+            <TouchableOpacity onPress={() => navigation.navigate('Login')}>
+              <Text style={styles.links}>Login</Text>
+            </TouchableOpacity>
+          </View>
+          
+        <View style={styles.wrapper}>
+                <View style={styles.sectionStyle}>
+                <TextInput
+                    // label={userFullname}
+                    style={styles.input}
+                    underlineColorAndroid="transparent"
+                    placeholder="Enter Full Name"
+                    // value={userFullname}
+                    // editable={!isLoading}
+                    // onChangeText={onChangeNameHandler}
+                    // onChangeText={text => setuserFullname(text)}
+                    // onSubmitEditing={(value) => setuserFullname(value.nativeEvent.text)}
+                  />
+                </View>      
+          <View style={styles.sectionStyle}>
+              <TextInput
+                // label={email}
+                underlineColorAndroid="transparent"
+                style={styles.input}
+                placeholder="Enter email"
+                keyboardType="email-address"
+                // value={email}
+                // editable={!isLoading}
+                // onChangeText={onChangeEmailHandler}
+                // value={email}
+                // onChangeText={setEmail}
+                // onChangeText={text => setEmail(text)}
+                // onSubmitEditing={(value) => setName(value.nativeEvent.text)}
+              />
+          </View>
+          {/* <Text>Welcome: {name}</Text> */}
+          <View style={styles.sectionStyle}>
+              <TouchableOpacity>
+                <Image
+                    source={{
+                      uri:
+                        'https://img.icons8.com/material-two-tone/344/closed-eye.png',
+                    }}
+                   />
+              </TouchableOpacity>
             <TextInput
-              style={styles.inputStyle}
-              onChangeText={(Fullname) => setUserFullname(Fullname)}
-              underlineColorAndroid="#f000"
-              placeholder="Enter Name"
-              placeholderTextColor="#8b9cb5"
-              autoCapitalize="sentences"
-              returnKeyType="next"
-              onSubmitEditing={() =>
-                emailInputRef.current && emailInputRef.current.focus()
-              }
-              blurOnSubmit={false}
+              secureTextEntry
+              style={styles.input}
+              placeholder="Enter password"
+              // value={password}
+              // onChangeText={setPassword}
+              // onChangeText={text => setPassword(text)}
             />
           </View>
-          <View style={styles.SectionStyle}>
-            <TextInput
-              style={styles.inputStyle}
-              onChangeText={(UserEmail) => setUserEmail(UserEmail)}
-              underlineColorAndroid="#f000"
-              placeholder="Enter Email"
-              placeholderTextColor="#8b9cb5"
-              keyboardType="email-address"
-              ref={emailInputRef}
-              returnKeyType="next"
-              onSubmitEditing={() =>
-                ageInputRef.current && ageInputRef.current.focus()
-              }
-              blurOnSubmit={false}
-            />
+          
+          <View style={{flexDirection: 'row', marginTop: 10}}>
+              {/* <CheckBox
+                checked={true}
+                onPress={() => setAgree(agree)}
+                value={agree}
+                onClick={() => setAgree(!agree)}
+                onValueChange={() => setAgree(agree)}
+                color={agree ? "#4630EB" : undefined}
+              /> */}
+                                <Switch
+                  ios_backgroundColor="#3e3e3e"
+                  activeOpacity={1}
+                  trackColor={{ false: "#c1c1c1", true: "#000" }}
+                  // thumbColor={isEnabled ? "#ccc" : "#3d3d3d"}
+                   value={agree}
+                  onValueChange={() => setAgree(!agree)}
+                  />
+             <Text> I have read and agree to the privacy policy {''} terms of service and community guidelines </Text>
           </View>
-          <View style={styles.SectionStyle}>
-            <TextInput
-              style={styles.inputStyle}
-              onChangeText={(UserAddress) => setUserAddress(UserAddress)}
-              underlineColorAndroid="#f000"
-              placeholder="Enter Address"
-              placeholderTextColor="#8b9cb5"
-              autoCapitalize="sentences"
-              ref={addressInputRef}
-              returnKeyType="next"
-              onSubmitEditing={Keyboard.dismiss}
-              blurOnSubmit={false}
-            />
+          
+          <View style={ styles.logButton}>
+            <TouchableOpacity 
+              title="Register"
+              disabled={!agree}
+              onPress={handleRegister}
+              >
+              <Text style={styles.logText}>Register</Text>
+            </TouchableOpacity>
           </View>
-          {errortext != '' ? (
-            <Text style={styles.errorTextStyle}> {errortext} </Text>
-          ) : null}
-          <TouchableOpacity
-            style={styles.buttonStyle}
-            activeOpacity={0.5}
-            onPress={handleSubmitButton}>
-            <Text style={styles.buttonTextStyle}>REGISTER</Text>
-          </TouchableOpacity>
-        </KeyboardAvoidingView>
-      </ScrollView>
-    </View>
-  );
+        </View>
+      </SafeAreaView>
+    );
+  
 };
+
 export default RegisterScreen;
 
 const styles = StyleSheet.create({
-  SectionStyle: {
-    flexDirection: 'row',
-    height: 40,
+  Top: {
     marginTop: 20,
-    marginLeft: 35,
-    marginRight: 35,
-    margin: 10,
+    marginLeft: -320
   },
-  buttonStyle: {
-    backgroundColor: '#7DE24E',
-    borderWidth: 0,
-    color: '#FFFFFF',
-    borderColor: '#7DE24E',
-    height: 40,
+  TopView: {
+    marginTop: 100
+  },
+  sectionStyle: {
+    width: 300,
+    borderColor: '#ccc',
+    flexDirection: 'row',
+    borderWidth: 1.5,
+    borderRadius: 5,
+    margin: 8,
+    borderRadius: 10
+    // padding: 109/
+    // mareginTop: 15
+  },
+  imageStyle: {
+    padding: 10,
+    margin: 5,
+    height: 35,
+    width: 35,
+    resizeMode: 'stretch',
     alignItems: 'center',
-    borderRadius: 30,
-    marginLeft: 35,
-    marginRight: 35,
-    marginTop: 20,
-    marginBottom: 20,
+  },
+  eyeStyle: {
+    // padding: 10,
+    marginTop: 10,
+    marginLeft: 90,
+    margin: 5,
+    height: 25,
+    width: 25,
+    resizeMode: 'stretch',
+    alignItems: 'center',
+  },
+  imagesStyle: {
+    height: 50,
+    width: 250
+  },
+  buttonGPlusStyle: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#ccc',
+    borderWidth: 0.5,
+    color: '#000',
+    borderColor: '#fff',
+    height: 40,
+    borderRadius: 5,
+    width: 120,
+    margin: 5,
+  },
+  buttonFacebookStyle: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#ccc',
+    borderWidth: 0.5,
+    borderColor: '#fff',
+    color: '#000',
+    width: 120,
+    height: 40,
+    borderRadius: 5,
+    margin: 5,
+  },
+  buttonImageIconStyle: {
+    padding: 10,
+    margin: 5,
+    height: 25,
+    width: 25,
+    resizeMode: 'stretch',
   },
   buttonTextStyle: {
-    color: '#FFFFFF',
-    paddingVertical: 10,
-    fontSize: 16,
+    color: '#000',
+    marginBottom: 4,
+    marginLeft: 10,
   },
-  inputStyle: {
-    flex: 1,
-    color: 'white',
-    paddingLeft: 15,
-    paddingRight: 15,
-    borderWidth: 1,
-    borderRadius: 30,
-    borderColor: '#dadae8',
+  buttonIconSeparatorStyle: {
+    backgroundColor: '#fff',
+    width: 1,
+    height: 40,
   },
-  errorTextStyle: {
-    color: 'red',
+  logButton: {
+    marginTop: 20,
+    backgroundColor: '#3d3d3d',
+    height: 50,
+    justifyContent: 'center',
+    marginLeft: 35,
+    width: 250,
+    borderRadius: 10
+  },
+  logText: {
+    // marginTop: 8,
     textAlign: 'center',
-    fontSize: 14,
+    color: '#fff',
+    fontWeight: 'bold',
+    fontSize: 25
   },
-  successTextStyle: {
-    color: 'white',
-    textAlign: 'center',
-    fontSize: 18,
-    padding: 30,
+  container: {
+    // flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  wrapper: {
+    marginTop: 10,
+    width: '80%',
+  },
+  input: {
+    // marginTop: 15
+    // marginBottom: 12,
+    // width: 270,
+    // borderWidth: 1,
+    // borderColor: '#bbb',
+    // borderRadius: 5,
+    // paddingHorizontal: 14,
+  },
+  links: {
+    color: '#000',
+    fontWeight: 'bold',
+  },
+  link: {
+    color: 'black',
+    // fontWeight: 'bold',
+    marginLeft: 50
   },
 });
+// const styles = StyleSheet.create({
+//   Top: {
+//     marginTop: 20,
+//     marginLeft: -320
+//   },
+//   TopView: {
+//     marginTop: 100
+//   },
+//   sectionStyle: {
+//     width: 300,
+//     borderColor: '#ccc',
+//     flexDirection: 'row',
+//     borderWidth: 1.5,
+//     borderRadius: 5,
+//     margin: 8,
+//     borderRadius: 10
+//     // padding: 109/
+//     // mareginTop: 15
+//   },
+//   imageStyle: {
+//     padding: 10,
+//     margin: 5,
+//     height: 35,
+//     width: 35,
+//     resizeMode: 'stretch',
+//     alignItems: 'center',
+//   },
+//   eyeStyle: {
+//     // padding: 10,
+//     marginTop: 10,
+//     marginLeft: 90,
+//     margin: 5,
+//     height: 25,
+//     width: 25,
+//     resizeMode: 'stretch',
+//     alignItems: 'center',
+//   },
+//   imagesStyle: {
+//     height: 50,
+//     width: 250
+//   },
+//   buttonGPlusStyle: {
+//     flexDirection: 'row',
+//     alignItems: 'center',
+//     backgroundColor: '#ccc',
+//     borderWidth: 0.5,
+//     color: '#000',
+//     borderColor: '#fff',
+//     height: 40,
+//     borderRadius: 5,
+//     width: 120,
+//     margin: 5,
+//   },
+//   buttonFacebookStyle: {
+//     flexDirection: 'row',
+//     alignItems: 'center',
+//     backgroundColor: '#ccc',
+//     borderWidth: 0.5,
+//     borderColor: '#fff',
+//     color: '#000',
+//     width: 120,
+//     height: 40,
+//     borderRadius: 5,
+//     margin: 5,
+//   },
+//   buttonImageIconStyle: {
+//     padding: 10,
+//     margin: 5,
+//     height: 25,
+//     width: 25,
+//     resizeMode: 'stretch',
+//   },
+//   buttonTextStyle: {
+//     color: '#000',
+//     marginBottom: 4,
+//     marginLeft: 10,
+//   },
+//   buttonIconSeparatorStyle: {
+//     backgroundColor: '#fff',
+//     width: 1,
+//     height: 40,
+//   },
+//   logButton: {
+//     marginTop: 20,
+//     backgroundColor: '#3d3d3d',
+//     height: 50,
+//     justifyContent: 'center',
+//     marginLeft: 35,
+//     width: 250,
+//     borderRadius: 10
+//   },
+//   logText: {
+//     // marginTop: 8,
+//     textAlign: 'center',
+//     color: '#fff',
+//     fontWeight: 'bold',
+//     fontSize: 25
+//   },
+//   container: {
+//     // flex: 1,
+//     alignItems: 'center',
+//     justifyContent: 'center',
+//   },
+//   wrapper: {
+//     marginTop: 10,
+//     width: '80%',
+//   },
+//   input: {
+//     // marginTop: 15
+//     // marginBottom: 12,
+//     // width: 270,
+//     // borderWidth: 1,
+//     // borderColor: '#bbb',
+//     // borderRadius: 5,
+//     // paddingHorizontal: 14,
+//   },
+//   links: {
+//     color: '#000',
+//     fontWeight: 'bold',
+//   },
+//   link: {
+//     color: 'black',
+//     // fontWeight: 'bold',
+//     marginLeft: 50
+//   },
+// });

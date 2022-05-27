@@ -48,6 +48,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     backgroundColor: '#ccc',
   },
+  
   activityIndicator: {
     alignItems: 'center',
     height: 80,

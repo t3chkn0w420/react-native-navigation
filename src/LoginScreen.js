@@ -13,6 +13,7 @@ import {
   Switch
 } from 'react-native';
  
+// import AsyncStorage from '@react-native-async-storage/async-storage';
 import Loader from './components/Loader';
  
 const LoginScreen = ({navigation}) => {
@@ -115,7 +116,7 @@ const LoginScreen = ({navigation}) => {
               <Image
                       source={{
                         uri:
-                          'https://img.icons8.com/plumpy/344/user.png',
+                          'https://img.icons8.com/fluency-systems-regular/344/user.png',
                       }}
                       style={styles.imageStyle}
                     />
@@ -142,7 +143,7 @@ const LoginScreen = ({navigation}) => {
              <Image
                     source={{
                       uri:
-                        'https://img.icons8.com/plumpy/344/forgot-password.png',
+                        'https://img.icons8.com/fluency-systems-regular/344/user-lock.png',
                     }}
                     style={styles.imageStyle}
                   />
@@ -169,33 +170,33 @@ const LoginScreen = ({navigation}) => {
               </Text>
             ) : null}
             
-        <View style={{flexDirection: 'row', marginLeft: 35}}>
-          <Switch
-
-            ios_backgroundColor="#3e3e3e"
-            activeOpacity={1}
-            // onValueChange={toggleSwitch}
-            // value={isEnabled}
-            trackColor={{ false: "#c1c1c1", true: "#000" }}
-            thumbColor={isEnabled ? "#ccc" : "#3d3d3d"}
-             value={agree}
-            onValueChange={() => setAgree(!agree)}
-          //  color={agree ? "#4630EB" : undefined}
-            />
-          <Text> Remember Me? </Text>
-          
-          <TouchableOpacity 
-            onPress={() => navigation.navigate('Forgot')}
-          >
-            <Text style={styles.link}>Forgot Password?</Text>
-            <Image
-                    source={{
-                      uri:
-                        'https://img.icons8.com/plumpy/344/forgot-password.png',
-                    }}
-                    style={styles.imageForgot}
+        <View style={{flexDirection: 'row', marginLeft: 35 }}>
+            <View style={{ flexDirection: 'row' }}>
+                  <Switch
+                  ios_backgroundColor="#3e3e3e"
+                  activeOpacity={1}
+                  trackColor={{ false: "#c1c1c1", true: "#000" }}
+                  thumbColor={isEnabled ? "#ccc" : "#3d3d3d"}
+                   value={agree}
+                  onValueChange={() => setAgree(!agree)}
                   />
-          </TouchableOpacity>
+              <Text> Remember Me? </Text>
+            </View>
+          
+          <View style={{flexDirection: 'row'}}>
+            <TouchableOpacity 
+              onPress={() => navigation.navigate('Forgot')}
+            >
+              <Image
+                      source={{
+                        uri:
+                          'https://img.icons8.com/small/344/forgot-password.png',
+                      }}
+                      // style={styles.imageForgot}
+                    />
+              <Text style={styles.link}>Forgot Password?</Text>
+            </TouchableOpacity>
+          </View>
         </View>
         
             <TouchableOpacity
@@ -337,13 +338,13 @@ const styles = StyleSheet.create({
     alignContent: 'center',
   },
   SectionStyle: {
-    width: 300,
+    width: 320,
     borderColor: '#ccc',
     flexDirection: 'row',
     borderWidth: 1.5,
     borderRadius: 5,
     margin: 8,
-    marginLeft: 50,
+    marginLeft: 35,
     borderRadius: 10
     // padding: 109/
     // mareginTop: 15
@@ -400,6 +401,14 @@ const styles = StyleSheet.create({
     width: 35,
     resizeMode: 'stretch',
     alignItems: 'center',
+  },
+  imageForgot: {
+    // padding: 10,
+    // margin: 2,
+    height: 25,
+    width: 25,
+    // resizeMode: 'stretch',
+    // alignItems: 'center',
   },
   registerTextStyle: {
     color: '#FFFFFF',
