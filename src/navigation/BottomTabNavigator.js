@@ -3,13 +3,12 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { Text, StyleSheet, Image } from 'react-native'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 
-import Analytics from '../Tab/Analytics';
-import About from '../Tab/About';
+import Analytics from '../screens/TabScreens/Analytics';
+import About from '../screens/TabScreens/About';
 import HomeScreen from '../screens/HomeScreen';
-import Settings from '../Tab/Settings';
-import Profile from '../Tab/Profile';
+import Settings from '../screens/TabScreens/Settings';
+import Profile from '../screens/TabScreens/Profile';
 
-import DrawerNavigator from './DrawerNavigator';
 const Tab = createBottomTabNavigator()
 
 // const BottomTabNavigator = () => {

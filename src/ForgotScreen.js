@@ -18,7 +18,7 @@ const ForgotScreen = ({ navigation }) => {
                   <TouchableOpacity
                       onPress={() => {navigation.goBack()}}
                   >
-                      <Image source={require('../assets/images/back.png')}
+                      <Image source={require('./assets/images/back.png')}
                         style={{ height: 30, width: 30}}
                       />
                   </TouchableOpacity>

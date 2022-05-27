@@ -1,29 +1,16 @@
-// import React from 'react';
-// import {ActivityIndicator, View} from 'react-native';
-
-// const SplashScreen = () => {
-//   return (
-//     <View
-//       style={{flex: 1, justifyContent: 'center', backgroundColor: '#06bcee'}}>
-//       <ActivityIndicator size="large" color="#ffffff" />
-//     </View>
-//   );
-// };
-
 import React, {useState, useEffect} from 'react';
-import {
-  ActivityIndicator,
-  View,
-  StyleSheet,
-  Image
-} from 'react-native';
-import { AsyncStorage } from 'react-native';
- 
+import {ActivityIndicator, View, StyleSheet, AsyncStorage, Image} from 'react-native';
+
 // import AsyncStorage from '@react-native-community/async-storage';
- 
+
+import AuthStackNavigator from './navigation/AuthStackNavigator';
+import DrawerNavigation from './navigation/DrawerNavigation';
+
+
 const SplashScreen = ({navigation}) => {
+  //State for ActivityIndicator animation
   const [animating, setAnimating] = useState(true);
- 
+
   useEffect(() => {
     setTimeout(() => {
       setAnimating(false);
@@ -31,17 +18,15 @@ const SplashScreen = ({navigation}) => {
       //If not then send for Authentication
       //else send to Home Screen
       AsyncStorage.getItem('user_id').then((value) =>
-        navigation.replace(
-          value === null ? 'Navigator' : 'DrawerNavigator'
-        ),
+        navigation.replace(value === null ? 'Auth' : 'DrawerNavigation'),
       );
     }, 5000);
   }, []);
- 
+
   return (
     <View style={styles.container}>
       <Image
-        source={require('../assets/images/logo.png')}
+        source={require('./assets/images/logo.png')}
         style={{width: '90%', resizeMode: 'contain', margin: 30}}
       />
       <ActivityIndicator
@@ -53,15 +38,15 @@ const SplashScreen = ({navigation}) => {
     </View>
   );
 };
- 
+
 export default SplashScreen;
- 
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#307ecc',
+    backgroundColor: '#ccc',
   },
   activityIndicator: {
     alignItems: 'center',

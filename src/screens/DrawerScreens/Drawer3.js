@@ -3,10 +3,10 @@ import { View, StyleSheet, Text } from "react-native";
 // import { useAuth } from "../AuthContext";
 
 const Drawer3 = () => {
-  const [user] = useAuth();
+  // const [user] = useAuth();
   return (
     <View style={styles.center}>
-      <Text>{user.displayName}</Text>
+      {/* <Text>{user.displayName}</Text> */}
     </View>
   );
 };

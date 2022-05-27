@@ -1,54 +1,28 @@
+import 'react-native-gesture-handler';
 
-// import React from 'react';
-// import {StatusBar, Text, View} from 'react-native';
-// import Navigation from './src/components/Navigation';
-// import {AuthProvider} from './src/context/AuthContext';
+import React from 'react';
 
-// const App = () => {
-//   return (
-//     <AuthProvider>
-//       <StatusBar backgroundColor="#06bcee" />
-//       <Navigation />
-//     </AuthProvider>
-//   );
-// };
+import {NavigationContainer} from '@react-navigation/native';
+import {createStackNavigator} from '@react-navigation/stack';
 
-// export default App;
+import SplashScreen from './src/SplashScreen';
+import AuthStackNavigator from './src/navigation/AuthStackNavigator';
+import DrawerNavigation from './src/navigation/DrawerNavigation';
 
-import React from 'react'
-import { SafeAreaView, StyleSheet, StatusBar, Text } from "react-native";
-import { useNavigation } from '@react-navigation/core';
-import { NavigationContainer } from '@react-navigation/native'
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import {   createDrawerNavigator,
-  DrawerContentScrollView,
-  DrawerItemList,
-  DrawerItem } from '@react-navigation/drawer';
-
-const Stack = createNativeStackNavigator();
-
-import DrawerNavigator from './src/navigation/DrawerNavigator';
-import Navigator from './src/navigation/StackNavigator';
+const Stack = createStackNavigator();
 
 const App = () => {
   return (
     <NavigationContainer>
-          <Stack.Navigator screenOptions={{ headerShown: false }}>
-              <Stack.Screen name="Navigator"  component={Navigator} />
-              <Stack.Screen name="DrawerNavigator"  component={DrawerNavigator} />
-          </Stack.Navigator>
+      <Stack.Navigator initialRouteName="SplashScreen">
+        <Stack.Screen name="SplashScreen" component={SplashScreen} options={{headerShown: false}} />
+        
+        <Stack.Screen name="Auth" component={AuthStackNavigator} options={{headerShown: false}} />
+        
+         <Stack.Screen name="DrawerNavigation" component={DrawerNavigation} options={{headerShown: false}} />
+      </Stack.Navigator>
     </NavigationContainer>
-  )
-}
-
-const styles = StyleSheet.create({
-  center: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    textAlign: "center",
-  },
-});
+  );
+};
 
 export default App;

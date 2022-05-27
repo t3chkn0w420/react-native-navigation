@@ -14,7 +14,7 @@ import { AsyncStorage } from 'react-native';
 // import Spinner from 'react-native-loading-spinner-overlay';
 // import {AuthContext} from '../context/AuthContext';
 
-// const { login } = React.useContext(AuthContext);
+// const { login } = React.useContext(AutwhContext);
 
 export default class LoginScreen extends Component {
 
