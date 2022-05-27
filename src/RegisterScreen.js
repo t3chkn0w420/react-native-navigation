@@ -215,7 +215,7 @@ const RegisterScreen = ({ navigation, props }) => {
                    value={agree}
                   onValueChange={() => setAgree(!agree)}
                   />
-             <Text> I have read and agree to the privacy policy {''} terms of service and community guidelines </Text>
+             <Text> I have read and agree to the privacy policy {'\n'} terms of service and community guidelines </Text>
           </View>
           
           <View style={ styles.logButton}>
